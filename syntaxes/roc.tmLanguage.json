@@ -1,0 +1,178 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"scopeName": "source.roc",
+	"patterns": [
+		{ "include": "#comments" },
+		{ "include": "#keywords" },
+		{ "include": "#operators" },
+		{ "include": "#variables" },
+		{ "include": "#numbers" },
+		{ "include": "#types" },
+		{ "include": "#punctuation" },
+		{ "include": "#strings" }
+	],
+	"repository": {
+		"interpolations": {
+			"name": "meta.interpolation.roc",
+			"match": "\\$\\{[^\"{}]*\\}"
+		},
+		"escapes": {
+			"name": "constant.character.escape.roc",
+			"match": "\\\\\\(u[a-fA-F]{4,6}\\)"
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"comment": "Integer base 16",
+					"name": "constant.numeric.roc",
+					"match": "\\b0x[0-9a-f]+\\b"
+				},
+				{
+					"comment": "Integer base 8",
+					"name": "constant.numeric.roc",
+					"match": "\\b0o[0-7]+\\b"
+				},
+				{
+					"comment": "Integer base 2",
+					"name": "constant.numeric.roc",
+					"match": "\\b0b[01]+\\b"
+				},
+				{
+					"comment": "Integer",
+					"name": "constant.numeric.roc",
+					"match": "\\b[0-9]+(\\.(U8|I8|U16|I16|U32|I32|U64|I64|U128|I128|F32|F64|Dec))?"
+				}
+			]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"comment": "double-quoted string",
+					"name": "string.quoted.double.roc",
+					"begin": "\"",
+					"end": "\"",
+					"patterns": [
+						{
+							"include": "#interpolations"
+						},
+						{
+							"include": "#escapes"
+						}
+					]
+				},
+				{
+					"comment": "character",
+					"name": "string.quoted.single.char.roc",
+					"begin": "'",
+					"end": "'"
+				},
+				{
+					"begin": "\\\\\\\\",
+					"end": "$",
+					"name": "string.multiline.roc",
+					"patterns": [
+						{
+							"include": "#interpolations"
+						}
+					]
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.line.documentation.roc",
+					"match": "##.*$"
+				},
+				{
+					"match": "#.*$",
+					"name": "comment.line.roc"
+				}
+			]
+		},
+		"operators": {
+			"patterns": [
+				{ "name": "keyword.operator.roc", "match": "\\|>" },
+				{ "name": "keyword.operator.roc", "match": "\\b(or|and)\\b" },
+				{ "name": "keyword.operator.roc", "match": "!=" },
+				{ "name": "keyword.operator.roc", "match": "!" },
+				{ "name": "keyword.operator.roc", "match": "->" },
+				{ "name": "keyword.operator.roc", "match": "=>" },
+				{ "name": "keyword.operator.roc", "match": ">=" },
+				{ "name": "keyword.operator.roc", "match": "<=" },
+				{ "name": "keyword.operator.roc", "match": ">" },
+				{ "name": "keyword.operator.roc", "match": "<" },
+				{ "name": "keyword.operator.roc", "match": "==" },
+				{ "name": "keyword.operator.roc", "match": ":=" },
+				{ "name": "keyword.operator.roc", "match": "\\.\\." },
+				{ "name": "keyword.operator.roc", "match": "\\.\\.\\." },
+				{ "name": "keyword.operator.roc", "match": "\\?\\?" },
+				{ "name": "keyword.operator.roc", "match": "::" },
+				{
+					"match": "=",
+					"name": "keyword.operator.assignment.roc"
+				},
+				{
+					"match": "\\?",
+					"name": "keyword.operator.question.roc"
+				}
+			]
+		},
+		"variables": {
+			"name": "variable.other.roc",
+			"match": "(?<!(?<!\\.)\\.)(?:\\b|\\$)[a-z_][a-z0-9_]*(?:!|\\b)",
+			"comment": "Uses a negative lookbehind to exclude a presceding dot (e.g. `.identifier`), but include two presceding dots (e.g. `..identifier`)"
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"name": "constant.language.roc",
+					"match": "\\b(True|False)\\b",
+					"comment": "TODO: Are these actually keywords now?"
+				},
+				{
+					"name": "keyword.control.roc",
+					"match": "\\b(if|else|import|as|for|in|return|match|var|while|dbg|expect|where)\\b"
+				}
+			]
+		},
+		"types": {
+			"name": "storage.type.roc",
+			"match": "\\b[A-Z][A-Za-z_0-9]*\\b"
+		},
+		"punctuation": {
+			"patterns": [
+				{
+					"name": "punctuation.comma.roc",
+					"match": ","
+				},
+				{
+					"name": "punctuation.colon.roc",
+					"match": ":"
+				},
+				{
+					"name": "punctuation.other.roc",
+					"match": "\\|"
+				},
+				{
+					"name": "punctuation.brackets.curly.roc",
+					"match": "[{}]"
+				},
+				{
+					"name": "punctuation.brackets.round.roc",
+					"match": "[()]"
+				},
+
+				{
+					"comment": "square brackets",
+					"name": "punctuation.brackets.square.roc",
+					"match": "[\\[\\]]"
+				},
+				{
+					"match": "\\.",
+					"name": "punctuation.accessor.roc"
+				}
+			]
+		}
+	}
+}

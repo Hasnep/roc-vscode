@@ -1,0 +1,92 @@
+name: Build
+
+permissions: {}
+
+on:
+  # Run on all PRs
+  pull_request:
+  # Run on merge to main
+  push:
+    branches: [main]
+  # Run when a release is published
+  release:
+    types: [published]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # ratchet:actions/checkout@v7
+        with:
+          persist-credentials: false
+          fetch-depth: 1  # Fetch only the latest commit
+
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c  # ratchet:nixbuild/nix-quick-install-action@v35
+
+      - name: Cache Nix environment
+        uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # ratchet:nix-community/cache-nix-action@v7  # zizmor: ignore[cache-poisoning]
+        # Don't enable the cache when releasing to avoid cache-poisoning
+        if: ${{ github.event_name != 'release' }}
+        with:
+          primary-key: nix-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-${{ runner.arch }}
+
+      - name: Use Nix dev shell for subsequent steps
+        uses: rrbutani/use-nix-shell-action@59a52b2b9bbfe3cc0e7deb8f9059abe37a439edf  # ratchet:rrbutani/use-nix-shell-action@v1
+
+      - name: Build
+        run: |
+          nix build \
+            && mkdir -p out \
+            && cp --dereference result/*.vsix out/
+
+      - name: Upload the artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # ratchet:actions/upload-artifact@v7
+        with:
+          name: roc-vscode-vsix
+          path: out/
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    # Only publish when a release is published
+    if: github.event_name == 'release'
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # ratchet:actions/checkout@v7
+        with:
+          persist-credentials: false
+          fetch-depth: 1  # Fetch only the latest commit
+
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c  # ratchet:nixbuild/nix-quick-install-action@v35
+
+      # Don't restore from cache when releasing to avoid cache poisoning
+
+      - name: Use Nix dev shell for subsequent steps
+        uses: rrbutani/use-nix-shell-action@59a52b2b9bbfe3cc0e7deb8f9059abe37a439edf  # ratchet:rrbutani/use-nix-shell-action@v1
+
+      - name: Download the artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c  # ratchet:actions/download-artifact@v8
+        with:
+          name: roc-vscode-vsix
+          path: out/
+
+      - name: Upload artifact to release
+        run: gh release upload "$REF_NAME" "out/*.vsix"
+        env:
+          REF_NAME: ${{ github.ref_name }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to VSCode Marketplace
+        run: npx --no-install --call 'vsce publish out/*.vsix'
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+      - name: Publish to Open VSX
+        run: npx --no-install --call 'ovsx publish out/*.vsix'
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}

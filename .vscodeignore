@@ -1,0 +1,16 @@
+# Ignore everything and then unignore only the files we need
+**/*
+
+# Transpiled code
+!dist/
+
+# Textmate grammar
+!syntaxes/*.json
+
+# Logo
+!images/*.png
+
+# Metadata
+!README.md
+!CHANGELOG.md
+!LICENCE

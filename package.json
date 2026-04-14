@@ -1,0 +1,98 @@
+{
+	"galleryBanner": {
+		"color": "202746",
+		"theme": "dark"
+	},
+	"license": "UPL-1.0",
+	"icon": "./images/roc-logo.png",
+	"pricing": "Free",
+
+	"author": {
+		"email": "h@nnes.dev",
+		"name": "Hannes",
+		"url": "https://ha.nnes.dev"
+	},
+	"name": "roc",
+	"repository": {
+		"url": "https://github.com/hasnep/roc-vscode",
+		"type": "git"
+	},
+	"publisher": "hannes",
+	"displayName": "Roc",
+	"description": "Language support for the Roc programming language",
+	"version": "0.0.0",
+	"engines": {
+		"vscode": "^1.75.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"private": true,
+	"activationEvents": [],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"languages": [
+			{
+				"id": "roc",
+				"aliases": [
+					"Roc"
+				],
+				"extensions": [
+					".roc"
+				],
+				"configuration": "./language-configuration.json",
+				"icon": {
+					"dark": "./images/roc-logo.png",
+					"light": "./images/roc-logo.png"
+				}
+			}
+		],
+		"grammars": [
+			{
+				"language": "roc",
+				"scopeName": "source.roc",
+				"path": "./syntaxes/roc.tmLanguage.json"
+			}
+		],
+		"commands": [
+			{
+				"title": "Restart",
+				"category": "Roc",
+				"command": "roc.restart"
+			}
+		],
+		"configuration": {
+			"title": "Roc",
+			"properties": {
+				"roc.path": {
+					"type": "string",
+					"scope": "machine-overridable",
+					"markdownDescription": "Path to the `roc` binary to use. Leave blank for auto detection using `PATH`."
+				}
+			}
+		},
+		"configurationDefaults": {
+			"[roc]": {
+				"editor.insertSpaces": false,
+				"editor.formatOnSave": true
+			}
+		}
+	},
+	"scripts": {
+		"test": "vscode-test"
+	},
+	"dependencies": {
+		"vscode-languageclient": "^9.0.1"
+	},
+	"devDependencies": {
+		"@types/mocha": "^10.0.10",
+		"@types/node": "22.x",
+		"@types/vscode": "^1.75.0",
+		"@vscode/test-cli": "^0.0.12",
+		"@vscode/test-electron": "^2.5.2",
+		"esbuild": "^0.27.2",
+		"ovsx": "^0.10.11",
+		"textmate-grammar-test": "^0.6.0",
+		"typescript": "^5.9.3"
+	}
+}

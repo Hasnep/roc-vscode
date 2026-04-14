@@ -1,0 +1,28 @@
+name: Update draft release
+
+permissions: {}
+
+on:
+  # Run when a PR is merged into main
+  push:
+    branches: [main]
+
+jobs:
+  update-draft-release:
+    name: Update draft release
+    permissions:
+      # Permissions required for creating a GitHub release
+      contents: write
+      pull-requests: read
+    runs-on: ubuntu-latest
+    outputs:
+      tag_name: ${{ steps.update-draft-release.outputs.tag_name }}
+    steps:
+      - name: Update the draft release
+        id: update-draft-release
+        uses: release-drafter/release-drafter@34d80673e067bdc0c24568d3af899c216adcfaa9  # ratchet:release-drafter/release-drafter@v7
+        with:
+          config-name: release-drafter.yaml
+          disable-autolabeler: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
