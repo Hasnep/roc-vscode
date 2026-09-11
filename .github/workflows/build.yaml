@@ -34,9 +34,6 @@ jobs:
           primary-key: nix-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
           restore-prefixes-first-match: nix-${{ runner.os }}-${{ runner.arch }}
 
-      - name: Use Nix dev shell for subsequent steps
-        uses: rrbutani/use-nix-shell-action@59a52b2b9bbfe3cc0e7deb8f9059abe37a439edf  # ratchet:rrbutani/use-nix-shell-action@v1
-
       - name: Build
         run: mkdir -p out && cat "$(nix build --no-link --print-out-paths .#roc-vscode-vsix)" > out/roc-vscode.vsix
 
