@@ -20,7 +20,7 @@
 	"publisher": "hannes",
 	"displayName": "Roc",
 	"description": "Language support for the Roc programming language",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.75.0"
 	},
