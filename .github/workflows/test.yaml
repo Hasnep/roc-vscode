@@ -32,5 +32,8 @@ jobs:
       - name: Use Nix dev shell for subsequent steps
         uses: rrbutani/use-nix-shell-action@59a52b2b9bbfe3cc0e7deb8f9059abe37a439edf  # ratchet:rrbutani/use-nix-shell-action@v1
 
+      - name: Install JavaScript dependencies
+        run: npm ci
+
       - name: Run checks
         run: just test

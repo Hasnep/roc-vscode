@@ -66,6 +66,9 @@ jobs:
       - name: Use Nix dev shell for subsequent steps
         uses: rrbutani/use-nix-shell-action@59a52b2b9bbfe3cc0e7deb8f9059abe37a439edf  # ratchet:rrbutani/use-nix-shell-action@v1
 
+      - name: Install JavaScript dependencies
+        run: npm ci
+
       - name: Download the artifact
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c  # ratchet:actions/download-artifact@v8
         with:
