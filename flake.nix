@@ -97,6 +97,7 @@
               pkgs.python3Packages.pre-commit-hooks
               pkgs.ratchet
               pkgs.rumdl
+              pkgs.sd
               pkgs.typescript
               pkgs.xvfb-run
               pkgs.yamlfix
