@@ -77,7 +77,7 @@
               installPhase = ''
                 runHook preInstall
 
-                cp build/roc-.vsix $out
+                cp build/roc-vscode.vsix $out
 
                 runHook postInstall
               '';

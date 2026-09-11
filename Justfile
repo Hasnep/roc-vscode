@@ -8,7 +8,7 @@ syntaxes_dir := root_dir / "syntaxes"
 [parallel]
 build: build-js build-logo
     mkdir -p {{ build_dir }}
-    vsce package --out={{ build_dir / "roc.vsix" }}
+    vsce package --out={{ build_dir / "roc-vscode.vsix" }}
 
 build-js:
     esbuild \
