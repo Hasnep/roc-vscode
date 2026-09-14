@@ -34,8 +34,21 @@ jobs:
           primary-key: nix-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
           restore-prefixes-first-match: nix-${{ runner.os }}-${{ runner.arch }}
 
-      - name: Build
-        run: mkdir -p out && cat "$(nix build --no-link --print-out-paths .#roc-vscode-vsix)" > out/roc-vscode.vsix
+      - name: Check tag matches package version
+        if: github.event_name == 'release' # Only check when a release is published
+        run: scripts/check-versions-match.py "$VERSION"
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
+
+      - name: Build Nix package
+        run: nix build --no-link .#roc-vscode
+
+      - name: Build VSIX
+        run: |
+          mkdir -p out
+          cat "$(nix build --no-link --print-out-paths .#roc-vscode-vsix)" > "out/roc-vscode-$VERSION.vsix"
+        env:
+          VERSION: ${{ github.event.release.tag_name }}
 
       - name: Upload the artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # ratchet:actions/upload-artifact@v7
@@ -45,9 +58,9 @@ jobs:
 
       - name: Upload artifact to release
         if: github.event_name == 'release' # Only upload when a release is published
-        run: gh release upload "$REF_NAME" "out/*.vsix"
+        run: gh release upload "$VERSION" "out/roc-vscode-$VERSION.vsix"
         env:
-          REF_NAME: ${{ github.ref_name }}
+          VERSION: ${{ github.ref_name }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Don't upload anything to VSCode Marketplace or Open VSX yet
