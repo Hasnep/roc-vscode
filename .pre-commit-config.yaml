@@ -147,6 +147,6 @@ repos:
       - name: Check versions match
         id: check-versions-match
         language: system
-        entry: scripts/check-versions-match.sh
+        entry: scripts/check-versions-match.py
         always_run: true
         pass_filenames: false
