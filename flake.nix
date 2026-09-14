@@ -91,6 +91,7 @@
               pkgs.actionlint
               pkgs.biome
               pkgs.deadnix
+              pkgs.jq
               pkgs.keep-sorted
               pkgs.nixfmt
               pkgs.pre-commit
@@ -98,6 +99,7 @@
               pkgs.ratchet
               pkgs.rumdl
               pkgs.sd
+              pkgs.shellcheck
               pkgs.typescript
               pkgs.xvfb-run
               pkgs.yamlfix
