@@ -1,43 +1,39 @@
-root_dir := justfile_dir()
-build_dir := root_dir / "build"
-dist_dir := root_dir / "dist"
-images_dir := root_dir / "images"
-src_dir := root_dir / "src"
-syntaxes_dir := root_dir / "syntaxes"
+help:
+    just --list
 
 [parallel]
 build: build-js build-logo
-    mkdir -p {{ build_dir }}
-    vsce package --out={{ build_dir / "roc-vscode.vsix" }}
+    mkdir -p build/
+    vsce package --out=build/
 
 build-js:
     esbuild \
-        {{ src_dir / "extension.ts" }} \
+        src/extension.ts \
         --bundle \
         --format=cjs \
         --minify \
         --sources-content=false \
         --platform=node \
-        --outfile={{ dist_dir / "extension.js" }} \
+        --outfile=dist/extension.js \
         --external:vscode
 
 # Convert the logo from an SVG to a PNG
 build-logo:
     inkscape \
-        {{ images_dir / "roc-logo.svg" }} \
-        --export-filename={{ images_dir / "roc-logo.png" }} \
+        images/roc-logo.svg \
+        --export-filename=images/roc-logo.png \
         --export-dpi=300
 
 # Build the extension whenever a source file is changed
 watch:
     esbuild \
-        {{ src_dir / "extension.ts" }} \
+        src/extension.ts \
         --bundle \
         --format=cjs \
         --sourcemap \
         --sources-content=false \
         --platform=node \
-        --outfile={{ dist_dir / "extension.js" }} \
+        --outfile=dist/extension.js \
         --external:vscode \
         --watch
 
