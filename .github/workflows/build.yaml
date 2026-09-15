@@ -47,8 +47,8 @@ jobs:
 
       - name: Build VSIX
         run: |
-          mkdir -p out
-          cat "$(nix build --no-link --print-out-paths .#roc-vscode-vsix)" > "out/roc-vscode-$VERSION.vsix"
+          mkdir -p build/
+          cat "$(nix build --no-link --print-out-paths .#roc-vscode-vsix)" > "build/roc-vscode-$VERSION.vsix"
         env:
           VERSION: ${{ github.event.release.tag_name }}
 
@@ -56,7 +56,7 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # ratchet:actions/upload-artifact@v7
         with:
           name: roc-vscode-vsix
-          path: out/
+          path: build/
 
       - name: Upload artifact to release
         if: github.event_name == 'release' # Only upload when a release is published
