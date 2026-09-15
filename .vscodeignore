@@ -10,6 +10,9 @@
 # Logo
 !images/*.png
 
+# Language configuration
+!language-configuration.json
+
 # Metadata
 !README.md
 !CHANGELOG.md
