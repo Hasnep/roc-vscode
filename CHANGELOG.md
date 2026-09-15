@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.0.5
+
 - Fix brackets not automatically closing.
 - Fix code folding.
 
