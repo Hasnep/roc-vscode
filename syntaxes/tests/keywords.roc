@@ -26,3 +26,7 @@ expect {
     y = 10
     x + y == 15
 }
+
+# crash keyword
+_ = crash "reason"
+#   ^^^^^ keyword.control.roc
