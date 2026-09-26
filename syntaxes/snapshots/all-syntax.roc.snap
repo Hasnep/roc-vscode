@@ -949,7 +949,7 @@
 #           ^ source.roc punctuation.brackets.curly.roc
 >        crash "not implemented"
 #^^^^^^^^ source.roc
-#        ^^^^^ source.roc variable.other.roc
+#        ^^^^^ source.roc keyword.control.roc
 #             ^ source.roc
 #              ^ source.roc string.quoted.double.roc
 #               ^^^^^^^^^^^^^^^ source.roc string.quoted.double.roc
