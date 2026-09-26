@@ -132,7 +132,7 @@
 				},
 				{
 					"name": "keyword.control.roc",
-					"match": "\\b(if|else|import|as|for|in|return|match|var|while|dbg|expect|where|crash|exposing)\\b"
+					"match": "\\b(if|else|import|as|for|in|return|match|var|while|dbg|expect|where|crash|exposing|platform|app|package)\\b"
 				}
 			]
 		},
