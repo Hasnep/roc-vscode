@@ -60,7 +60,7 @@ jobs:
 
       - name: Upload artifact to release
         if: github.event_name == 'release' # Only upload when a release is published
-        run: gh release upload "$VERSION" "out/roc-vscode-$VERSION.vsix"
+        run: gh release upload "$VERSION" "build/roc-vscode-$VERSION.vsix"
         env:
           VERSION: ${{ github.ref_name }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
