@@ -39,7 +39,7 @@
             roc-vscode-vsix = pkgs.stdenv.mkDerivation (finalAttrs: {
               name = "roc-vscode.vsix";
               pname = "roc-vscode-vsix";
-              version = "0.1.0";
+              version = "0.1.1";
 
               src = pkgs.lib.cleanSource ./.;
               sourceRoot = "source";
