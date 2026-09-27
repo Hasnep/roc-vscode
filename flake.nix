@@ -47,7 +47,7 @@
               npmDeps = pkgs.fetchNpmDeps {
                 name = "${finalAttrs.pname}-npm-deps";
                 src = finalAttrs.src;
-                hash = "sha256-FBsvCQEcPVsnAGwdvef+V74NiCXTguuYGwqcSpvLBdg=";
+                hash = "sha256-0oxYaOvDDdW0WHRFJujFcr+4I/y63gx8eT0A8YaaH/Q=";
               };
 
               nativeBuildInputs = [
