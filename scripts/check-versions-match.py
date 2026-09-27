@@ -17,6 +17,10 @@ def main() -> None:
 
     version_package_json = json.loads(Path("package.json").read_text())["version"]
 
+    version_package_lock_json = json.loads(Path("package-lock.json").read_text())[
+        "version"
+    ]
+
     version_flake = json.loads(
         subprocess.run(
             ["nix", "eval", "--json", ".#roc-vscode.version"],
@@ -26,16 +30,21 @@ def main() -> None:
     )
 
     if version_arg is None:
-        if version_package_json != version_flake:
+        if not (version_package_json == version_package_lock_json == version_flake):
             print(
-                f"Version mismatch: package.json has {version_package_json}, flake.nix has {version_flake}",
+                f"Version mismatch: package.json has {version_package_json}, package-lock.json has {version_package_json}, flake.nix has {version_flake}",
                 file=sys.stderr,
             )
             sys.exit(1)
     else:
-        if not (version_arg == version_package_json == version_flake):
+        if not (
+            version_arg
+            == version_package_json
+            == version_package_lock_json
+            == version_flake
+        ):
             print(
-                f"Version mismatch: provided argument {version_arg}, package.json has {version_package_json}, flake.nix has {version_flake}",
+                f"Version mismatch: provided argument {version_arg}, package.json has {version_package_json}, package-lock.json has {version_package_json}, flake.nix has {version_flake}",
                 file=sys.stderr,
             )
             sys.exit(1)
