@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Fix line comments: the toggle-comment command now inserts `#` rather than `//`.
+
 - Require VS Code 1.82 or newer. Earlier versions could install the extension but it never started the language server.
 - "Roc: Restart" now really restarts the language server, picks up a changed `roc.path`, and reports a server that cannot be started with the path and setting to fix.
 - Time out hover requests after 10 seconds so the hover widget cannot hang on "Loading...".
