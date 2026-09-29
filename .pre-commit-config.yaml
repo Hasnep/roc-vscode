@@ -59,6 +59,8 @@ repos:
         language: system
         entry: scripts/roc-format-spaces.sh
         files: \.roc$
+        # The VSIX test workspace includes a file that must stay unformatted.
+        exclude: ^test/fixtures/
 
       # Textmate Grammar
       - name: Update Textmate Grammar snapshots
