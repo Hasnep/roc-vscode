@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## v0.1.1
+
+- Fix CI.
+
+## v0.1.0
+
+- Add sytax highlighting for the `app`, `package`, `platform`, `exposing` and `crash` keywords.
+
 ## v0.0.5
 
 - Fix brackets not automatically closing.
