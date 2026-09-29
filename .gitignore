@@ -22,3 +22,6 @@ logs/
 # Nix
 result
 .direnv
+
+# Pinned Roc nightly used by the VSIX integration tests
+.roc-nightly/
