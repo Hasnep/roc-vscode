@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Fix line comments: the toggle-comment command now inserts `#` rather than `//`.
+
 ## v0.0.5
 
 - Fix brackets not automatically closing.
