@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Fix syntax highlighting for non-base 10 number literals with explicit type suffixes (e.g. `0xFFF.U8`).
+
 ## v0.1.1
 
 - Fix CI.

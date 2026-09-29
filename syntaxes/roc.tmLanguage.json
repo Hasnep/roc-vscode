@@ -25,22 +25,22 @@
 				{
 					"comment": "Integer base 16",
 					"name": "constant.numeric.roc",
-					"match": "\\b0x[0-9a-f]+\\b"
+					"match": "\\b0x[0-9a-f]+(\\.(U8|I8|U16|I16|U32|I32|U64|I64|U128|I128|F32|F64|Dec))?\\b"
 				},
 				{
 					"comment": "Integer base 8",
 					"name": "constant.numeric.roc",
-					"match": "\\b0o[0-7]+\\b"
+					"match": "\\b0o[0-7]+(\\.(U8|I8|U16|I16|U32|I32|U64|I64|U128|I128|F32|F64|Dec))?\\b"
 				},
 				{
 					"comment": "Integer base 2",
 					"name": "constant.numeric.roc",
-					"match": "\\b0b[01]+\\b"
+					"match": "\\b0b[01]+(\\.(U8|I8|U16|I16|U32|I32|U64|I64|U128|I128|F32|F64|Dec))?\\b"
 				},
 				{
 					"comment": "Integer",
 					"name": "constant.numeric.roc",
-					"match": "\\b[0-9]+(\\.(U8|I8|U16|I16|U32|I32|U64|I64|U128|I128|F32|F64|Dec))?"
+					"match": "\\b[0-9]+(\\.(U8|I8|U16|I16|U32|I32|U64|I64|U128|I128|F32|F64|Dec))?\\b"
 				}
 			]
 		},
